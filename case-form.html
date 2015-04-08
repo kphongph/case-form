@@ -1,97 +1,84 @@
-<!--
-    @license
-    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../core-selector/core-selector.html">
+<link rel="import" href="../core-toolbar/core-toolbar.html">
 
-<!--
-Element providing solution to no problem in particular.
+<link rel="import" href="questions/case-question-single-select.html">
+<link rel="import" href="form-datasource.html">
 
-##### Example
-
-    <seed-element></seed-element>
-
-@element seed-element
-@blurb Element providing solution to no problem in particular.
-@status alpha
-@homepage http://polymerlabs.github.io/seed-element
--->
-<polymer-element name="seed-element" attributes="notitle author">
-
+<polymer-element name="case-form" attributes="src">
   <template>
+    <link rel="stylesheet" href="case-form.css">
+    
+    <form-datasource url="{{src}}" form="{{form}}"></form-datasource>
+    <core-toolbar cross-fade-delayed>
+      <div flex>{{question.question}}</div>
+    </core-toolbar>
 
-    <link rel="stylesheet" href="seed-element.css">
-
-    <h1>Hello from seed-element</h1>
-    <content></content>
-
+    <core-selector id="questionView" 
+      on-question-answered="{{questionAnswered}}"
+      cross-fade-delayed
+      notap selected="{{question.type}}">
+      <case-question-single-select name="single-select">
+      </case-question-single-select>
+    </core-selector>
+    
+    <template if="{{answered}}">
+    <paper-button raised on-tap="{{questionDone}}">Next</paper-button>
+    </template>
   </template>
 
   <script>
-
-    Polymer({
-      /**
-       * The `author` attribute sets an initial author
-       *
-       * @attribute author
-       * @type string
-       * @default 'Dimitri Glazkov'
-       */
-      author: 'Dimitri Glazkov',
-
-      /**
-       * `fancy` is a property that does something fancy.
-       *
-       * @property fancy
-       * @type bool
-       * @default false
-       */
-      fancy: false,
-
+    Polymer('case-form',{
+      answered:false,
+      observe: { 
+        'form':'update'
+      },
       ready: function() {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
       },
-
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'seed-element says, ' + response;
+      update: function() {
+        console.log('update');
+        if(this.form) {
+          this.index = 0;
+        }
       },
+      indexChanged: function() {
+        if(this.form.questions) { 
+          if(this.form.questions.length > this.index) {
+            this.question = this.form.questions[this.index];
+          } else {
+            this.fire('form-done');
+            this.questionView.reset();
+          }
+        }
+      },
+      questionChanged: function() {
+        if(this.questionView) {
+          this.questionView.reset();
+        } 
 
-      /**
-       * The `seed-element-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event seed-element-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
-
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function() {
-        this.fire('seed-element-lasers-success', { sound: 'Pew pew pew!' });
+        if(this.question) {
+          this.questionView = this.$.questionView.querySelector(
+           '[name="'+this.question.type+'"]');
+          if(this.questionView) {
+            this.questionView.question = this.question;
+          }
+        }
+      },
+      questionAnswered: function() {
+        this.answered = true;
+      },
+      questionDone: function() {
+        this.next();
+      },
+      next:function() {
+        this.index++;
+        this.answered = false;
+        if(this.questionView) {
+          this.questionView.reset();
+        }
       }
-
     });
-
   </script>
 
 </polymer-element>

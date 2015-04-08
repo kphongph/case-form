@@ -1,0 +1,16 @@
+<link rel="import" href="../core-ajax/core-ajax.html">
+
+<polymer-element name="form-datasource" hidden>
+  <template>
+    <core-ajax auto handleAs="json" url="{{url}}" response="{{form}}">
+    </core-ajax>
+  </template>
+  <script>
+    Polymer('form-datasource', {
+      publish: {
+        url:'',
+        form:null
+      }
+    });
+  </script>
+</polymer>

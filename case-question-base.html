@@ -1,0 +1,29 @@
+<polymer-element name="case-question-base" attributes="question" block>
+
+<template>
+  <style>
+    :host {
+      padding: 40px 16px;
+    }
+    :host-context(.wide) {
+      padding: 40px 24px 48px;
+    }
+  </style>
+</template>
+
+<script>
+  (function() {
+    Polymer('case-question-base', {
+      eventDelegates: {
+        tap: 'answered',
+      },
+      answered: function() {
+        this.fire('question-answered');
+      },
+      reset: function() {
+        this.value = null;
+      }
+    });
+  })();
+</script>
+</polymer-element>

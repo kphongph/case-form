@@ -1,10 +1,10 @@
 {
-  "name": "seed-element",
-  "version": "0.0.0",
+  "name": "case-form",
+  "version": "0.0.1",
   "authors": [
     "Phongphun Kijsanayothin <kphongph@gmail.com>"
   ],
-  "description": "Element providing solution to no problem in particular.",
+  "description": "Case Form",
   "keywords": [
     "web-component",
     "web-components",
@@ -16,12 +16,26 @@
   "homepage": "https://github.com/kphongph/case-form/",
   "ignore": [
     "/.*",
-    "/tests/"
+    "/tests/",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../",
+    "test",
+    "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.4"
+    "polymer": "Polymer/polymer#^0.5.4",
+    "core-ajax": "Polymer/core-ajax#~0.5.5",
+    "core-selector": "Polymer/core-selector#~0.5.5",
+    "paper-radio-button": "Polymer/paper-radio-button#~0.5.5",
+    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
+    "paper-button": "Polymer/paper-button#~0.5.5"
   },
   "devDependencies": {
     "web-component-tester": "*"
-  }
+  },
+  "moduleType": [
+    "globals"
+  ]
 }
