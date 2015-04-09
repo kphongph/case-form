@@ -10,15 +10,26 @@
 </head>
 <body unresolved>
 
-  <p>An example of using <code>&lt;case-form&gt;</code>:</p>
-
-  <case-form fit id="form33" src="./form33.json"></case-form>
+  <template is="auto-binding">
+    <p>An example of using <code>&lt;case-form&gt;</code>:</p>
+    <template if="{{!fform}}">
+    <case-form fit id="form33" src="./form33.json" filled="{{fform}}">
+    </case-form>
+    </template>
+    {{fform.name}}
+    
+    <template repeat="{{question in fform.questions}}">
+      <template if="{{question.type == 'single-select'}}">
+        <p>
+        <b>{{question.question}}</b> 
+        - {{question.options[question.answer]}} 
+        {{question.score[question.answer]}} 
+        </p>
+      </template> 
+    </template> 
+  </template>
 
   <script>
-    window.addEventListener('form-done', function(e) {
-      var casef = document.querySelector('case-form');
-      casef.style.display = 'none';
-    });
   </script>
 
 </body>

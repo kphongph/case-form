@@ -16,7 +16,8 @@
           1,
           2,
           3
-        ]
+        ],
+        "answer":3
       },
       {
         "type": "single-select",

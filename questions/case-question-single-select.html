@@ -3,7 +3,7 @@
 <link rel="import" href="../../paper-radio-button/paper-radio-button.html">
 
 <polymer-element name="case-question-single-select" 
-   extends="case-question-base" noscript>
+   extends="case-question-base">
 <template>
 
   <style>
@@ -36,4 +36,18 @@
   </core-selector>
 
 </template>
+<script>
+  Polymer('case-question-single-select', {
+    questionChanged: function() {
+      if(this.question.answer) {
+        this.value=this.question.answer;
+      }
+    },
+    setAnswer : function() {
+      this.question.answer = this.value;
+      console.log(this.question);
+    }
+  });
+ 
+</script>
 </polymer-element>

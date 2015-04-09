@@ -7,7 +7,7 @@
 <link rel="import" href="questions/case-question-single-select.html">
 <link rel="import" href="form-datasource.html">
 
-<polymer-element name="case-form" attributes="src" layout vertical>
+<polymer-element name="case-form" attributes="src filled" layout vertical>
 
   <template>
     <link rel="stylesheet" href="case-form.css">
@@ -48,7 +48,6 @@
       ready: function() {
       },
       update: function() {
-        console.log('update');
         if(this.form) {
           this.index = 0;
         }
@@ -58,8 +57,7 @@
           if(this.form.questions.length > this.index) {
             this.question = this.form.questions[this.index];
           } else {
-            this.fire('form-done');
-            this.questionView.reset();
+            this.filled = this.form;
           }
         }
       },
@@ -80,6 +78,9 @@
         this.answered = true;
       },
       questionDone: function() {
+        if(this.question) {
+          this.questionView.setAnswer();
+        }
         this.next();
       },
       next:function() {
