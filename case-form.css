@@ -7,6 +7,9 @@
   visibility: hidden;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
 
 .question-panel {
   overflow: auto;

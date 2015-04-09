@@ -6,6 +6,8 @@
 
   <script src="../webcomponentsjs/webcomponents.min.js"></script>
   <link rel="import" href="case-form.html">
+  <style>
+  </style>
 
 </head>
 <body unresolved>
@@ -13,8 +15,8 @@
   <template is="auto-binding">
     <p>An example of using <code>&lt;case-form&gt;</code>:</p>
     <template if="{{!fform}}">
-    <case-form fit id="form33" src="./form33.json" filled="{{fform}}">
-    </case-form>
+      <case-form fit id="form33" src="./form33.json" filled="{{fform}}">
+      </case-form>
     </template>
     {{fform.name}}
     
@@ -28,9 +30,6 @@
       </template> 
     </template> 
   </template>
-
-  <script>
-  </script>
 
 </body>
 </html>
