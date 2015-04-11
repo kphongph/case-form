@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="case-form.css">
     <form-datasource url="{{src}}" form="{{form}}"></form-datasource>
     
-    <div id="questionPanel" class="question-panel" vertical flex>
+    <div id="questionPanel" class="question-panel" vertical >
       <div class="card {{ {answered: answered} | tokenList }}" 
-        flex layout vertical hero-p>
+        layout vertical hero-p>
 
         <core-toolbar class="theme-bg" cross-fade-delayed hero>
-          <div flex>{{question.question}}</div>
+          <div >{{question.question}}</div>
         </core-toolbar>
 
-        <div hidden?="{{!form}}" flex> 
+        <div hidden?="{{!form}}" > 
           <core-selector id="questionViews" 
             on-question-answered="{{questionAnswered}}"
             cross-fade-delayed hero
