@@ -3,7 +3,7 @@
     "qtid": "00033",
     "questions": [
       {
-        "type": "single-select",
+        "type": "multi-select",
         "question": "การเคลื่อนที่ภายในห้องหรือบ้าน",
         "options": [
           "เคลื่อนที่ไปไหนไม่ได้",

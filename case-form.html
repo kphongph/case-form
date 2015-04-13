@@ -5,6 +5,7 @@
 <link rel="import" href="../core-toolbar/core-toolbar.html">
 
 <link rel="import" href="questions/case-question-single-select.html">
+<link rel="import" href="questions/case-question-multi-select.html">
 <link rel="import" href="form-datasource.html">
 
 <polymer-element name="case-form" attributes="src filled" layout vertical>
@@ -28,6 +29,8 @@
             notap selected="{{question.type}}">
             <case-question-single-select name="single-select">
             </case-question-single-select>
+            <case-question-multi-select name="multi-select">
+            </case-question-multi-select>
           </core-selector>
         </div>
         <paper-fab class="check-button" icon="check" 

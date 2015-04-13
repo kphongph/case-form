@@ -1,0 +1,46 @@
+<link rel="import" href="../case-question-base.html">
+<link rel="import" href="../../core-selector/core-selector.html">
+<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+
+<polymer-element name="case-question-multi-select" extends="case-question-base">
+<template>
+  <style>
+    paper-checkbox {
+      padding: 14px 0;
+    }
+    paper-checkbox::shadow #checkboxLabel {
+      padding-left: 24px;
+    }
+    
+    paper-checkbox::shadow #ink[checked] {
+      color: #00bad2;
+    }
+    
+    paper-checkbox::shadow #checkbox.checked {
+      border-color: #00bad2;
+    }
+  </style>
+
+  <div id="choices">
+    <template repeat="{{question.options}}">
+      <paper-checkbox label="{{}}"></paper-checkbox><br>
+    </template>
+  </div>
+
+  <core-selector target="{{$.choices}}" multi 
+    itemsSelector="paper-checkbox" selected="{{selected}}" 
+    selectedProperty="checked">
+  </core-selector>
+
+</template>
+<script>
+  Polymer('case-question-multi-select', {
+    questionChanged: function() {
+    },
+    setAnswer : function() {
+      this.question.answer = this.selected && this.selected.sort();
+      console.log(this.question);
+    }
+  });
+</script>
+</polymer-element>
