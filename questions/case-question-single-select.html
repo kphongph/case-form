@@ -38,6 +38,10 @@
 </template>
 <script>
   Polymer('case-question-single-select', {
+    reset: function() {
+      this.super();
+      this.value = null;
+    },
     questionChanged: function() {
       if(this.question.answer) {
         this.value=this.question.answer;
