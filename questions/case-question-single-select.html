@@ -24,8 +24,16 @@
   </style>
 
   <div id="choices">
-    <template repeat="{{question.options}}">
-      <paper-radio-button label="{{}}"></paper-radio-button><br>
+    <template repeat="{{option in question.options}}">
+      <template if="{{option.label}}">
+        <paper-radio-button label="{{option.label}}">
+        </paper-radio-button>
+      </template>
+      <template if="{{!option.label}}">
+        <paper-radio-button label="{{option}}">
+        </paper-radio-button>
+      </template>
+      <br>
     </template>
   </div>
 
