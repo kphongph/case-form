@@ -37,7 +37,7 @@
   Polymer('case-question-multi-select', {
     reset: function() {
       this.super();
-      this.selected = null;
+      this.selected = [];
     },
     questionChanged: function() {
       if(this.question.answer) {
