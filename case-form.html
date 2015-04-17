@@ -4,15 +4,18 @@
 <link rel="import" href="../core-selector/core-selector.html">
 <link rel="import" href="../core-toolbar/core-toolbar.html">
 
+<link rel="import" href="../core-ajax/core-ajax.html">
+
 <link rel="import" href="questions/case-question-single-select.html">
 <link rel="import" href="questions/case-question-multi-select.html">
-<link rel="import" href="form-datasource.html">
 
-<polymer-element name="case-form" attributes="src filled form" layout vertical>
+<polymer-element name="case-form" attributes="src filled form active" layout vertical>
 
   <template>
     <link rel="stylesheet" href="case-form.css">
-    <form-datasource url="{{src}}" form="{{form}}"></form-datasource>
+
+    <core-ajax id="getForm" handleAs="json" url="{{src}}" response="{{form}}">
+    </core-ajax>
     
     <div id="questionPanel" class="question-panel" vertical >
       <div class="card {{ {answered: answered} | tokenList }}" 
@@ -45,8 +48,16 @@
     Polymer('case-form',{
       answered:false,
       icon:"check",
+      active:false,
       observe: { 
         'form':'update'
+      },
+      activeChanged: function(oldVal, newVal) {
+        if(newVal) {
+          if(!this.form) {
+            this.$.getForm.go();
+          }
+        }
       },
       ready: function() {
       },
