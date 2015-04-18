@@ -3,6 +3,10 @@
     "qtid": "00033",
     "questions": [
       {
+        "type":"fill-thai-date",
+        "question":"ทดสอบ thai input"
+      },
+      {
         "type": "multi-select",
         "question": "การเคลื่อนที่ภายในห้องหรือบ้าน",
         "options": [
@@ -18,6 +22,10 @@
           3
         ],
         "answer":3
+      },
+      {
+        "type":"fill-blank",
+        "question":"ทดสอบ text input"
       },
       {
         "type": "single-select",

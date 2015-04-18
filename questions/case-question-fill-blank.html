@@ -1,0 +1,53 @@
+<link rel="import" href="../case-question-base.html">
+<link rel="import" href="../../core-selector/core-selector.html">
+<link rel="import" href="../../paper-input/paper-input-decorator.html">
+<link rel="import" href="../../paper-input/paper-autogrow-textarea.html">
+
+<polymer-element name="case-question-fill-blank" 
+   extends="case-question-base">
+
+<template>
+
+  <style>
+
+    :host {
+      padding: 40px;
+      margin:20px;
+    }
+    
+    paper-input {
+      width: 100%;
+    }
+    
+  </style>
+  
+  <paper-input-decorator label="ข้อความ">
+    <paper-autogrow-textarea>
+      <textarea id="t1" value="{{value}}" maxlength="200"></textarea>
+    </paper-autogrow-textarea>
+    <paper-char-counter class="counter" target="t1"></paper-char-counter>
+  </paper-input-decorator>
+  
+</template>
+
+<script>
+  Polymer('case-question-fill-blank', {
+    eventDelegates: {
+      'input':'answered'
+    },
+    reset: function() {
+      this.super();
+      this.value = null;
+    },
+    questionChanged: function() {
+      if(this.question.answer) {
+        this.value=this.question.answer;
+      }
+    },
+    setAnswer : function() {
+      this.question.answer = this.value;
+    }
+  });
+ 
+</script>
+</polymer-element>

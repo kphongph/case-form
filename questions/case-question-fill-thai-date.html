@@ -1,0 +1,79 @@
+<link rel="import" href="../case-question-base.html">
+<link rel="import" href="../../core-input/core-input.html">
+<link rel="import" href="../../core-selector/core-selector.html">
+<link rel="import" href="../../paper-input/paper-input-decorator.html">
+
+<polymer-element name="case-question-fill-thai-date" 
+   extends="case-question-base">
+
+<template>
+
+  <style>
+
+    :host {
+      padding: 40px;
+      margin:20px;
+    }
+    
+    paper-input {
+      width: 100%;
+    }
+    
+  </style>
+  
+  <div hidden?="{{!showResult}}">{{value | thaiDate }}</div>
+  <paper-input-decorator id="paperDecorator" label="วัน-เดือน-ปี (พุทธศักราช)"
+    error="กรุณากรอกในรูปแบบ dd-mm-yyyy">
+    <input id="dateInput" is="core-input" value="{{text}}"
+      pattern="^([0-9]{2})-([0-9]{2})-([0-9]{4})$">
+  </paper-input-decorator>
+  
+</template>
+
+<script>
+  Polymer('case-question-fill-thai-date', {
+    showResult:false,
+    eventDelegates: {
+      'input':'answered'
+    },
+    thaiDate : function(dateStr) {
+      var date = new Date(dateStr);
+      var months = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน',
+        'พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม',
+        'กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+      return date.getDate()+' '+
+        months[date.getMonth()]+' '+
+        (date.getFullYear()+543);
+    },
+    reset: function() {
+      this.super();
+      this.value = null;
+    },
+    textChanged: function(oldVal, newVal) {
+      var decorator = this.$.paperDecorator;
+      var input = this.$.dateInput;
+      decorator.isInvalid = !input.validity.valid;
+      if(!decorator.isInvalid) {
+        var str = this.$.dateInput.value.split('-');
+        var tmp = new Date();
+        tmp.setFullYear(parseInt(str[2])-543);
+        tmp.setDate(parseInt(str[0]));
+        tmp.setMonth(parseInt(str[1])-1);
+        this.value = tmp;
+        this.showResult = true;
+      } else {
+        this.showResult = false;
+      }
+    },
+    questionChanged: function() {
+      if(this.question.answer) {
+        this.value=this.question.answer;
+      }
+    },
+    setAnswer : function() {
+      this.question.answer = this.value;
+    }
+  });
+ 
+</script>
+</polymer-element>
